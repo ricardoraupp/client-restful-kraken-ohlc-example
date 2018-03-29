@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: ricardoselister
+Build-Jdk: 10
+Implementation-Title: gs-consuming-rest
+Implementation-Version: 0.1.0
+Implementation-Vendor-Id: org.springframework
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/gs-consuming-rest
+Created-By: Maven Integration for Eclipse
+
