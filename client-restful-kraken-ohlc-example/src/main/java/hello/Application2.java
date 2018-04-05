@@ -36,8 +36,6 @@ public class Application2 {
 			log.info("Start");
 			String url = "https://api.kraken.com/0/public/Ticker?pair=XBTUSD";
 			ResponseEntity<ErrorTicker> response = restTemplate.exchange(url, HttpMethod.GET,null, ErrorTicker.class);
-			//ArrayList<OHLCData> cList = PopulateOHLCDataObject.deserialize(response.getBody().getResultTicker().getXXBTZUSD());
-			//cList.forEach(ohlcdata->System.out.println(ohlcdata.toString()));
 			log.info("Finish: "+response.getBody().getResultTicker().toString());
 			};	
 	}

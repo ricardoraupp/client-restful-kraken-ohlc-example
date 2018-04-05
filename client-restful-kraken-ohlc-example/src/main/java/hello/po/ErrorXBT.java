@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.tools.javac.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ErrorETH {
+public class ErrorXBT {
 	
 	private String[] error;
 	@JsonProperty("result")
-	private ResultETH result;
+	private Result result;
 
 	
 	public String[] getError() {
@@ -20,10 +20,10 @@ public class ErrorETH {
 	public void setError(String[] error) {
 		this.error = error;
 	}
-	public ResultETH getResult() {
+	public Result getResult() {
 		return result;
 	}
-	public void setResult(ResultETH result) {
+	public void setResult(Result result) {
 		this.result = result;
 	}
 	
