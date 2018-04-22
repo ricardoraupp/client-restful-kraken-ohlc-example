@@ -9,7 +9,7 @@ public class ConnectionFactory {
 	public static Connection getConnection() {
         try {
             return DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/kraken", "root", "Selister131@");
+                    "jdbc:mysql://localhost:3306/kraken", "your_user", "your_password");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

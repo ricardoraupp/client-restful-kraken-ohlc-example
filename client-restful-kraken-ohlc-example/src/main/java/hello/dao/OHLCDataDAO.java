@@ -29,26 +29,24 @@ public class OHLCDataDAO {
 			e.printStackTrace();
 		}
 	}
-	public void insert(OHLCData data, String table, String interval) {
+	public void insert(OHLCData data, String table, String interval, String last) {
 		
         String sql = "INSERT INTO "+table+interval+" values(?,?,?,?,?,?,?,?)";  
         try {  
-        	//log.info("FUCK");
-            PreparedStatement stmt = connection.prepareStatement(sql); 
-            stmt.setInt(1, Integer.parseInt(data.getTime()));
-            stmt.setDouble(2, Double.parseDouble(data.getOpen()));
-            stmt.setDouble(3, Double.parseDouble(data.getHigh()));
-            stmt.setDouble(4, Double.parseDouble(data.getLow()));
-            stmt.setDouble(5, Double.parseDouble(data.getClose()));
-            stmt.setDouble(6, Double.parseDouble(data.getVwap()));
-            stmt.setDouble(7, Double.parseDouble(data.getVolume()));
-            stmt.setInt(8, Integer.parseInt(data.getCount()));
-            stmt.execute();
-            stmt.close();
-            
+	            PreparedStatement stmt = connection.prepareStatement(sql); 
+	            stmt.setInt(1, Integer.parseInt(data.getTime()));
+	            stmt.setDouble(2, Double.parseDouble(data.getOpen()));
+	            stmt.setDouble(3, Double.parseDouble(data.getHigh()));
+	            stmt.setDouble(4, Double.parseDouble(data.getLow()));
+	            stmt.setDouble(5, Double.parseDouble(data.getClose()));
+	            stmt.setDouble(6, Double.parseDouble(data.getVwap()));
+	            stmt.setDouble(7, Double.parseDouble(data.getVolume()));
+	            stmt.setInt(8, Integer.parseInt(data.getCount()));
+	            stmt.execute();
+	            stmt.close();
             //connection.commit();
         } catch (SQLException u) {  
-        	//log.info("erro U"+u.getMessage());
+        	log.info("erro U"+u.getMessage());
         	//u.printStackTrace();
         }
 	}

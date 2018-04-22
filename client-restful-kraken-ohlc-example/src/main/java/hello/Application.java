@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import hello.dao.OHLCDataDAO;
 import hello.database.ConnectionFactory;
 import hello.po.ErrorETH;
+import hello.po.ErrorTicker;
 import hello.po.ErrorXBT;
 import hello.po.OHLCData;
 import hello.util.PopulateOHLCDataObject;
@@ -56,9 +57,12 @@ public class Application {
 			            	try {
 			            		
 				    			log.info("Start ETH");
-				    			String intervalETH = "15";
+				    			//set the interval
+				    			String intervalETH = "1440";
+				    			//set the table
 				    			String tableETH = "ethusd";
 				    			log.info("LAST ETH FIRST "+lastETH);
+				    			//set the url
 				    			String urlETH = "https://api.kraken.com/0/public/OHLC?pair=ETHUSD&interval="+intervalETH+"&since="+lastETH;
 				    			ResponseEntity<ErrorETH> responseETH = restTemplate.exchange(urlETH, HttpMethod.GET,null, ErrorETH.class);
 				    			ArrayList<OHLCData> cListETH;
@@ -66,26 +70,28 @@ public class Application {
 				    			lastETH = responseETH.getBody().getResult().getLast()+"";
 				    			log.info("LAST ETH "+lastETH);
 				    			log.info("XBT COUNT "+cListETH.size());
-				    			cListETH.forEach(ohlcdata->conn.insert(ohlcdata,tableETH,intervalETH));
-				    			//cList.forEach(ohlcdata->System.out.println(ohlcdata.getClose()));
-				    			//cList.forEach(ohlcdata->OHLCDataDAO.insert(ohlcdata))
+				    			cListETH.remove(cListETH.size()-1);
+				    			log.info("XBT COUNT AFTER REMOVE LAST "+cListETH.size());
+				    			cListETH.forEach(ohlcdata->conn.insert(ohlcdata,tableETH,intervalETH,lastETH));
 				    			log.info("Finish");
 				    			
+				    			
 				    			log.info("Start XBT");
-				    			String intervalXBT = "15";
+				    			//set the interval
+				    			String intervalXBT = "1440";
+				    			//set the table
 				    			String tableXBT = "xbtusd";
 				    			log.info("LAST XBT FIRST "+lastXBT);
 				    			String urlXBT = "https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval="+intervalXBT+"&since="+lastXBT;
 				    			ResponseEntity<ErrorXBT> responseXBT = restTemplate.exchange(urlXBT, HttpMethod.GET,null, ErrorXBT.class);
 				    			ArrayList<OHLCData> cListXBT = PopulateOHLCDataObject.deserialize(responseXBT.getBody().getResult().getXXBTZUSD());			
-				    			//OHLCDataDAO connXBT = new OHLCDataDAO();
 				    			lastXBT = responseXBT.getBody().getResult().getLast()+"";
 				    			log.info("LAST XBT "+lastXBT);
 				    			log.info("XBT COUNT "+cListXBT.size());
-				    			cListXBT.forEach(ohlcdata->conn.insert(ohlcdata,tableXBT,intervalXBT));
-				    			
-				    			//cList.forEach(ohlcdata->System.out.println(ohlcdata.getClose()));
-				    			//cList.forEach(ohlcdata->OHLCDataDAO.insert(ohlcdata))
+				    			cListXBT.remove(cListXBT.size()-1);
+				    			log.info("XBT COUNT AFTER REMOVE LAST "+cListXBT.size());
+				    			cListXBT.forEach(ohlcdata->conn.insert(ohlcdata,tableXBT,intervalXBT,lastXBT));
+
 				    			log.info("Finish");
 			            	}catch (IOException e) {
 									// TODO Auto-generated catch block
@@ -97,5 +103,14 @@ public class Application {
 			    //conn.closeConnection();
 			};	
 	}
-
+	//@Bean
+	//public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+	//	return args -> {
+	//		log.info("Start");
+	//		String url = "https://api.kraken.com/0/public/Ticker?pair=XBTUSD";
+	//		ResponseEntity<ErrorTicker> response = restTemplate.exchange(url, HttpMethod.GET,null, ErrorTicker.class);
+	//		log.info("Finish: "+response.getBody().getResultTicker().toString());
+	//		};	
+	//}
+ 
 }
